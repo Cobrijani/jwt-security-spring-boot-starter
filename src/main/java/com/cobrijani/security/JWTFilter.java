@@ -42,7 +42,7 @@ public class JWTFilter extends GenericFilterBean {
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(jwtProperties.getToken().getTokenHeader());
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getToken().getTokenSchema())) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(jwtProperties.getToken().getTokenSchema().length(), bearerToken.length());
         }
         return null;
     }
