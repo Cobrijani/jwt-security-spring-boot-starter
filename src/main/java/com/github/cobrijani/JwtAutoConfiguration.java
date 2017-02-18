@@ -1,11 +1,11 @@
-package com.cobrijani;
+package com.github.cobrijani;
 
-import com.cobrijani.properties.JwtSecurityProperties;
-import com.cobrijani.security.Http401UnauthorizedEntryPoint;
-import com.cobrijani.security.JJWTTokenProvider;
-import com.cobrijani.security.JWTConfigurer;
-import com.cobrijani.security.TokenProvider;
-import com.cobrijani.services.SimpleUserDetailService;
+import com.github.cobrijani.properties.JwtSecurityProperties;
+import com.github.cobrijani.security.Http401UnauthorizedEntryPoint;
+import com.github.cobrijani.security.JJWTTokenProvider;
+import com.github.cobrijani.security.JWTConfigurer;
+import com.github.cobrijani.security.TokenProvider;
+import com.github.cobrijani.services.SimpleUserDetailService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

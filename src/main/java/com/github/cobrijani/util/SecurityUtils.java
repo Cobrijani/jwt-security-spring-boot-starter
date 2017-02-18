@@ -1,4 +1,4 @@
-package com.cobrijani.util;
+package com.github.cobrijani.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

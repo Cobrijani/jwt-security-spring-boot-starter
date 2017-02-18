@@ -1,4 +1,4 @@
-package com.cobrijani.model;
+package com.github.cobrijani.model;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

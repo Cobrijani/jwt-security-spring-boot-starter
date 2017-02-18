@@ -1,4 +1,4 @@
-package com.cobrijani.properties;
+package com.github.cobrijani.properties;
 
 import lombok.Getter;
 import lombok.Setter;

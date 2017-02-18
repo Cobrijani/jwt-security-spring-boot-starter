@@ -1,6 +1,6 @@
-package com.cobrijani.security;
+package com.github.cobrijani.security;
 
-import com.cobrijani.properties.JwtSecurityProperties;
+import com.github.cobrijani.properties.JwtSecurityProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
