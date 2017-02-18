@@ -27,6 +27,8 @@
 
     <scm>
         <url>https://github.com/Cobrijani/jwt-security-autoconfigure.git</url>
+        <connection>scm:git:git://github.com/Cobrijani/jwt-security-autoconfigure.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Cobrijani/jwt-security-autoconfigure.git</developerConnection>
     </scm>
 
     <developers>
