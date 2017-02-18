@@ -17,6 +17,26 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/Cobrijani/jwt-security-autoconfigure.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <email>cobrijani@gmail.com</email>
+            <name>Stefan Bratic</name>
+            <url>https://github.com/Cobrijani</url>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
