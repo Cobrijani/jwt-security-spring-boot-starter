@@ -1,11 +1,11 @@
-package com.github.cobrijani;
+package com.github.Cobrijani;
 
-import com.github.cobrijani.properties.JwtSecurityProperties;
-import com.github.cobrijani.security.Http401UnauthorizedEntryPoint;
-import com.github.cobrijani.security.JJWTTokenProvider;
-import com.github.cobrijani.security.JWTConfigurer;
-import com.github.cobrijani.security.TokenProvider;
-import com.github.cobrijani.services.SimpleUserDetailService;
+import com.github.Cobrijani.properties.JwtSecurityProperties;
+import com.github.Cobrijani.security.Http401UnauthorizedEntryPoint;
+import com.github.Cobrijani.security.JJWTTokenProvider;
+import com.github.Cobrijani.security.JWTConfigurer;
+import com.github.Cobrijani.security.TokenProvider;
+import com.github.Cobrijani.services.SimpleUserDetailService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -120,7 +120,8 @@ public class JwtAutoConfiguration {
                 http.csrf().disable();
             }
 
-            http.exceptionHandling()
+            http
+                    .exceptionHandling()
                     .authenticationEntryPoint(new Http401UnauthorizedEntryPoint())
                     .and()
                     .sessionManagement()

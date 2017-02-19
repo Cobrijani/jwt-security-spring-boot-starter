@@ -1,7 +1,7 @@
-package com.github.cobrijani.properties;
+package com.github.Cobrijani.properties;
 
-import com.github.cobrijani.model.AuthenticationRequestBody;
-import com.github.cobrijani.model.SimpleAuthenticationRequestBody;
+import com.github.Cobrijani.model.AuthenticationRequestBody;
+import com.github.Cobrijani.model.SimpleAuthenticationRequestBody;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

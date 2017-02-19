@@ -1,4 +1,4 @@
-package com.github.cobrijani.security;
+package com.github.Cobrijani.security;
 
 import org.springframework.security.core.Authentication;
 

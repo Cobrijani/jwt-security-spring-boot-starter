@@ -1,9 +1,9 @@
-package com.github.cobrijani.security;
+package com.github.Cobrijani.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
-import com.github.cobrijani.model.AuthenticationRequestBody;
-import com.github.cobrijani.properties.JwtSecurityProperties;
+import com.github.Cobrijani.model.AuthenticationRequestBody;
+import com.github.Cobrijani.properties.JwtSecurityProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

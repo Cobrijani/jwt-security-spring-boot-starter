@@ -1,8 +1,7 @@
-package com.github.cobrijani.security;
+package com.github.Cobrijani.security;
 
-import com.github.cobrijani.properties.JwtSecurityProperties;
+import com.github.Cobrijani.properties.JwtSecurityProperties;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
@@ -13,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * {@link GenericFilterBean} that checks if header contains token and add it to {@link SecurityContextHolder}
@@ -30,20 +30,17 @@ public class JWTFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        String token = resolveToken(request);
 
-        if (StringUtils.hasText(token) && this.tokenProvider.validateToken(token)) {
-            Authentication authentication = this.tokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+        Optional.ofNullable(jwtProperties.getToken().getTokenHeader())
+                .map(request::getHeader)
+                .filter(StringUtils::hasText)
+                .filter(x -> x.startsWith(jwtProperties.getToken().getTokenSchema()))
+                .map(x -> x.substring(jwtProperties.getToken().getTokenSchema().length(), x.length()))
+                .filter(this.tokenProvider::validateToken)
+                .map(this.tokenProvider::getAuthentication)
+                .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(jwtProperties.getToken().getTokenHeader());
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getToken().getTokenSchema())) {
-            return bearerToken.substring(jwtProperties.getToken().getTokenSchema().length(), bearerToken.length());
-        }
-        return null;
-    }
 }

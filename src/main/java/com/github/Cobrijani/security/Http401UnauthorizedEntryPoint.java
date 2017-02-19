@@ -1,4 +1,4 @@
-package com.github.cobrijani.security;
+package com.github.Cobrijani.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

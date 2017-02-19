@@ -1,4 +1,4 @@
-package com.github.cobrijani.util;
+package com.github.Cobrijani.util;
 
 /**
  * Default constants for authorities

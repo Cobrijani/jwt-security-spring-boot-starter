@@ -1,6 +1,6 @@
-package com.github.cobrijani.services;
+package com.github.Cobrijani.services;
 
-import com.github.cobrijani.model.SimpleUserDetails;
+import com.github.Cobrijani.model.SimpleUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

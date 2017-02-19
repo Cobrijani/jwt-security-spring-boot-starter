@@ -1,4 +1,4 @@
-package com.github.cobrijani;
+package com.github.Cobrijani;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
