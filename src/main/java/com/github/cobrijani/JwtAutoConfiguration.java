@@ -44,18 +44,10 @@ public class JwtAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(Http401UnauthorizedEntryPoint.class)
-    public Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint() {
-        return new Http401UnauthorizedEntryPoint();
-    }
-
-
-    @Bean
     @ConditionalOnMissingBean(TokenProvider.class)
     public TokenProvider tokenProvider() {
         return new JJWTTokenProvider(jwtSecurityProperties);
     }
-
 
     @Bean
     @ConditionalOnMissingBean(PasswordEncoder.class)
@@ -88,8 +80,6 @@ public class JwtAutoConfiguration {
 
         private final JwtSecurityProperties jwtSecurityProperties;
 
-        private final Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint;
-
         private final PasswordEncoder passwordEncoder;
 
         private final UserDetailsService userDetailsService;
@@ -99,12 +89,10 @@ public class JwtAutoConfiguration {
 
         public SecurityConfiguration(SecurityProperties security,
                                      JwtSecurityProperties jwtSecurityProperties,
-                                     Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint,
                                      PasswordEncoder passwordEncoder, UserDetailsService userDetailsService,
                                      TokenProvider tokenProvider, TokenProvider tokenProvider1) {
             this.security = security;
             this.jwtSecurityProperties = jwtSecurityProperties;
-            this.http401UnauthorizedEntryPoint = http401UnauthorizedEntryPoint;
             this.passwordEncoder = passwordEncoder;
             this.userDetailsService = userDetailsService;
             this.tokenProvider = tokenProvider1;
@@ -133,7 +121,7 @@ public class JwtAutoConfiguration {
             }
 
             http.exceptionHandling()
-                    .authenticationEntryPoint(http401UnauthorizedEntryPoint)
+                    .authenticationEntryPoint(new Http401UnauthorizedEntryPoint())
                     .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
