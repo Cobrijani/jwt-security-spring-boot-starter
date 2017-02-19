@@ -1,5 +1,7 @@
 package com.github.cobrijani.properties;
 
+import com.github.cobrijani.model.AuthenticationRequestBody;
+import com.github.cobrijani.model.SimpleAuthenticationRequestBody;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,7 +19,11 @@ public class JwtSecurityProperties {
 
     private Token token = new Token();
 
+    private Class<? extends AuthenticationRequestBody> authenticationRequestBody = SimpleAuthenticationRequestBody.class;
+
     private boolean enabled = true;
+
+    private String url = "/api/v1/login";
 
     @Getter
     @Setter

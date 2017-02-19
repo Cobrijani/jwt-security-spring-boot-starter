@@ -15,6 +15,7 @@ import java.util.Optional;
  */
 @Service
 public class SimpleUserDetailService implements UserDetailsService {
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<String> username = Optional.ofNullable(s);

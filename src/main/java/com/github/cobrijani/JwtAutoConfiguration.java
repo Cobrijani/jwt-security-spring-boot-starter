@@ -24,6 +24,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 /**
  * Main class that triggers auto configuration
@@ -37,6 +38,7 @@ public class JwtAutoConfiguration {
 
     private final JwtSecurityProperties jwtSecurityProperties;
 
+
     public JwtAutoConfiguration(JwtSecurityProperties jwtSecurityProperties) {
         this.jwtSecurityProperties = jwtSecurityProperties;
     }
@@ -47,11 +49,6 @@ public class JwtAutoConfiguration {
         return new Http401UnauthorizedEntryPoint();
     }
 
-    @Bean
-    @ConditionalOnMissingBean(JWTConfigurer.class)
-    public JWTConfigurer jwtConfigurer() {
-        return new JWTConfigurer(tokenProvider(), jwtSecurityProperties);
-    }
 
     @Bean
     @ConditionalOnMissingBean(TokenProvider.class)
@@ -72,6 +69,15 @@ public class JwtAutoConfiguration {
         return new SimpleUserDetailService();
     }
 
+    @Bean
+    @ConditionalOnMissingBean(SecurityEvaluationContextExtension.class)
+    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+        return new SecurityEvaluationContextExtension();
+    }
+
+    /**
+     * Default Jwt based security configuration
+     */
     @Configuration
     @EnableWebSecurity
     @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -82,21 +88,26 @@ public class JwtAutoConfiguration {
 
         private final JwtSecurityProperties jwtSecurityProperties;
 
-        private final JWTConfigurer jwtConfigurer;
-
         private final Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint;
 
         private final PasswordEncoder passwordEncoder;
 
         private final UserDetailsService userDetailsService;
 
-        public SecurityConfiguration(SecurityProperties security, JwtSecurityProperties jwtSecurityProperties, JWTConfigurer jwtConfigurer, Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+        private final TokenProvider tokenProvider;
+
+
+        public SecurityConfiguration(SecurityProperties security,
+                                     JwtSecurityProperties jwtSecurityProperties,
+                                     Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint,
+                                     PasswordEncoder passwordEncoder, UserDetailsService userDetailsService,
+                                     TokenProvider tokenProvider, TokenProvider tokenProvider1) {
             this.security = security;
             this.jwtSecurityProperties = jwtSecurityProperties;
-            this.jwtConfigurer = jwtConfigurer;
             this.http401UnauthorizedEntryPoint = http401UnauthorizedEntryPoint;
             this.passwordEncoder = passwordEncoder;
             this.userDetailsService = userDetailsService;
+            this.tokenProvider = tokenProvider1;
         }
 
         /**
@@ -127,7 +138,7 @@ public class JwtAutoConfiguration {
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                    .apply(jwtConfigurer);
+                    .apply(new JWTConfigurer(tokenProvider, jwtSecurityProperties, authenticationManagerBean()));
         }
 
 

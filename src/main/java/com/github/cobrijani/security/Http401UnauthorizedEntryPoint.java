@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Implementation of {@link AuthenticationEntryPoint} that responds when unauthorized is being return by security part
+ */
 @Slf4j
 public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
