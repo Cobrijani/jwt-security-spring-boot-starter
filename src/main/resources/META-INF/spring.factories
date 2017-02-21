@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.Cobrijani.JwtAutoConfiguration
+  com.github.cobrijani.JwtAutoConfiguration

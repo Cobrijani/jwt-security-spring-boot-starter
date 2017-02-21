@@ -1,4 +1,4 @@
-package com.github.Cobrijani.model;
+package com.github.cobrijani.model;
 
 /**
  * Data transfer object that carries authentication data

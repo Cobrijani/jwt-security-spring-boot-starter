@@ -1,6 +1,6 @@
-package com.github.Cobrijani.security;
+package com.github.cobrijani.security;
 
-import com.github.Cobrijani.properties.JwtSecurityProperties;
+import com.github.cobrijani.properties.JwtSecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

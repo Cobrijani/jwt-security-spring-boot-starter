@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.Cobrijani</groupId>
-    <artifactId>jwt-security-autoconfigure</artifactId>
+    <groupId>com.github.cobrijani</groupId>
+    <artifactId>jwt-security-spring-boot-starter</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>jwt-security-autoconfigure</name>
+    <name>jwt-security-spring-boot-starter</name>
     <description>Spring boot Jwt security auto configuration</description>
 
     <distributionManagement>
@@ -37,9 +37,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Cobrijani/jwt-security-autoconfigure</url>
-        <connection>scm:git:git://github.com/Cobrijani/jwt-security-autoconfigure.git</connection>
-        <developerConnection>scm:git:ssh://github.com/Cobrijani/jwt-security-autoconfigure.git</developerConnection>
+        <url>https://github.com/Cobrijani/jwt-security-spring-boot-starter</url>
+        <connection>scm:git:git://github.com/Cobrijani/jwt-security-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Cobrijani/jwt-security-spring-boot-starter.git</developerConnection>
     </scm>
 
     <developers>
@@ -57,7 +57,6 @@
         <jjwt.version>0.5</jjwt.version>
         <javaslang.version>2.1.0-alpha</javaslang.version>
     </properties>
-
 
 
     <dependencies>

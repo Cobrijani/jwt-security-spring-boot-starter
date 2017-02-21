@@ -1,7 +1,7 @@
-package com.github.Cobrijani.properties;
+package com.github.cobrijani.properties;
 
-import com.github.Cobrijani.model.AuthenticationRequestBody;
-import com.github.Cobrijani.model.SimpleAuthenticationRequestBody;
+import com.github.cobrijani.model.AuthenticationRequestBody;
+import com.github.cobrijani.model.SimpleAuthenticationRequestBody;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "com.cobrijani.jwt", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "com.github.cobrijani.jwt", ignoreUnknownFields = false)
 public class JwtSecurityProperties {
 
     private Token token = new Token();

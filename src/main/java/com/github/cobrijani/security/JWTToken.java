@@ -1,4 +1,4 @@
-package com.github.Cobrijani.security;
+package com.github.cobrijani.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
