@@ -89,13 +89,14 @@ public class JwtAutoConfiguration {
 
         public SecurityConfiguration(SecurityProperties security,
                                      JwtSecurityProperties jwtSecurityProperties,
-                                     PasswordEncoder passwordEncoder, UserDetailsService userDetailsService,
-                                     TokenProvider tokenProvider, TokenProvider tokenProvider1) {
+                                     PasswordEncoder passwordEncoder,
+                                     UserDetailsService userDetailsService,
+                                     TokenProvider tokenProvider) {
             this.security = security;
             this.jwtSecurityProperties = jwtSecurityProperties;
             this.passwordEncoder = passwordEncoder;
             this.userDetailsService = userDetailsService;
-            this.tokenProvider = tokenProvider1;
+            this.tokenProvider = tokenProvider;
         }
 
         /**
