@@ -4,11 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.Cobrijani</groupId>
     <artifactId>jwt-security-autoconfigure</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>jwt-security-autoconfigure</name>
-    <description>Jwt security auto configuration</description>
+    <description>Spring boot Jwt security auto configuration</description>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -26,7 +37,7 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Cobrijani/jwt-security-autoconfigure.git</url>
+        <url>https://github.com/Cobrijani/jwt-security-autoconfigure</url>
         <connection>scm:git:git://github.com/Cobrijani/jwt-security-autoconfigure.git</connection>
         <developerConnection>scm:git:ssh://github.com/Cobrijani/jwt-security-autoconfigure.git</developerConnection>
     </scm>
@@ -96,7 +107,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
-                <configuration> <!-- Compile java 7 compatible bytecode -->
+                <configuration> <!-- Compile java 8 compatible bytecode -->
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
