@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.cobrijani</groupId>
   <artifactId>jwt-security-spring-boot-starter</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>jwt-security-spring-boot-starter</name>
@@ -38,7 +38,7 @@
   <scm>
     <url>https://github.com/Cobrijani/jwt-security-spring-boot-starter</url>
     <connection>scm:git:git://github.com/Cobrijani/jwt-security-spring-boot-starter.git</connection>
-    <developerConnection>scm:git:ssh://github.com/Cobrijani/jwt-security-spring-boot-starter.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:Cobrijani/jwt-security-spring-boot-starter.git</developerConnection>
     <tag>0.0.2</tag>
   </scm>
 
