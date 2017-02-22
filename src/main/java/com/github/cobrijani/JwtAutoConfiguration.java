@@ -29,6 +29,8 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 /**
  * Main class that triggers auto configuration
  * Created by SBratic on 2/17/2017.
+ *
+ * @author Stefan Bratic
  */
 @Configuration
 @ConditionalOnClass({WebSecurityConfigurerAdapter.class, AuthenticationManager.class,
