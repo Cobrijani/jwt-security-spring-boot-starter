@@ -21,26 +21,26 @@ import java.util.Optional;
 @AllArgsConstructor
 public class JWTFilter extends GenericFilterBean {
 
-    private final TokenProvider tokenProvider;
+  private final TokenProvider tokenProvider;
 
-    private final JwtSecurityProperties jwtProperties;
-
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+  private final JwtSecurityProperties jwtProperties;
 
 
-        Optional.ofNullable(jwtProperties.getToken().getTokenHeader())
-                .map(request::getHeader)
-                .filter(StringUtils::hasText)
-                .filter(x -> x.startsWith(jwtProperties.getToken().getTokenSchema()))
-                .map(x -> x.substring(jwtProperties.getToken().getTokenSchema().length(), x.length()))
-                .filter(this.tokenProvider::validateToken)
-                .map(this.tokenProvider::getAuthentication)
-                .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
+  @Override
+  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
+
+    Optional.ofNullable(jwtProperties.getToken().getTokenHeader())
+      .map(request::getHeader)
+      .filter(StringUtils::hasText)
+      .filter(x -> x.startsWith(jwtProperties.getToken().getTokenSchema()))
+      .map(x -> x.substring(jwtProperties.getToken().getTokenSchema().length(), x.length()))
+      .filter(this.tokenProvider::validateToken)
+      .map(this.tokenProvider::getAuthentication)
+      .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
+
+    filterChain.doFilter(servletRequest, servletResponse);
+  }
 
 }

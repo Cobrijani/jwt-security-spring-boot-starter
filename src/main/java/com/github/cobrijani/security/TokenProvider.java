@@ -8,29 +8,29 @@ import org.springframework.security.core.Authentication;
  */
 public interface TokenProvider {
 
-    /**
-     * Creates token based on authentication details
-     *
-     * @param authentication authenticatioon details
-     * @param rememberMe     is user remember me
-     * @return json web token
-     */
-    String createToken(Authentication authentication, Boolean rememberMe);
+  /**
+   * Creates token based on authentication details
+   *
+   * @param authentication authenticatioon details
+   * @param rememberMe     is user remember me
+   * @return json web token
+   */
+  String createToken(Authentication authentication, Boolean rememberMe);
 
-    /**
-     * Checks whether token is valid
-     *
-     * @param token token to be checked
-     * @return is valid or not
-     */
-    boolean validateToken(String token);
+  /**
+   * Checks whether token is valid
+   *
+   * @param token token to be checked
+   * @return is valid or not
+   */
+  boolean validateToken(String token);
 
-    /**
-     * Extract authentication from token
-     *
-     * @param token token to be extracted from
-     * @return authentication details
-     */
-    Authentication getAuthentication(String token);
+  /**
+   * Extract authentication from token
+   *
+   * @param token token to be extracted from
+   * @return authentication details
+   */
+  Authentication getAuthentication(String token);
 
 }

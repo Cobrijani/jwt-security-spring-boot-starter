@@ -15,18 +15,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class JWTConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private final TokenProvider tokenProvider;
+  private final TokenProvider tokenProvider;
 
-    private final JwtSecurityProperties jwtProperties;
+  private final JwtSecurityProperties jwtProperties;
 
-    private final AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
-    @Override
-    public void configure(HttpSecurity builder) throws Exception {
-        final JWTFilter jwtFilter = new JWTFilter(tokenProvider, jwtProperties);
-        final JWTLoginFilter jwtLoginFilter = new JWTLoginFilter(jwtProperties.getUrl(), tokenProvider, jwtProperties, authenticationManager);
+  @Override
+  public void configure(HttpSecurity builder) throws Exception {
+    final JWTFilter jwtFilter = new JWTFilter(tokenProvider, jwtProperties);
+    final JWTLoginFilter jwtLoginFilter = new JWTLoginFilter(jwtProperties.getUrl(), tokenProvider, jwtProperties, authenticationManager);
 
-        builder.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class);
-        builder.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+    builder.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class);
+    builder.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+  }
 }

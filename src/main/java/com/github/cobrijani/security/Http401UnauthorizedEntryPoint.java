@@ -15,9 +15,9 @@ import java.io.IOException;
 @Slf4j
 public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        log.debug("Authentication entry point access denied");
-        httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
-    }
+  @Override
+  public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+    log.debug("Authentication entry point access denied");
+    httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+  }
 }

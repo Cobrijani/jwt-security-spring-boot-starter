@@ -34,111 +34,111 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
  */
 @Configuration
 @ConditionalOnClass({WebSecurityConfigurerAdapter.class, AuthenticationManager.class,
-        GlobalAuthenticationConfigurerAdapter.class})
+  GlobalAuthenticationConfigurerAdapter.class})
 @EnableConfigurationProperties({JwtSecurityProperties.class})
 public class JwtAutoConfiguration {
 
+  private final JwtSecurityProperties jwtSecurityProperties;
+
+
+  public JwtAutoConfiguration(JwtSecurityProperties jwtSecurityProperties) {
+    this.jwtSecurityProperties = jwtSecurityProperties;
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(TokenProvider.class)
+  public TokenProvider tokenProvider() {
+    return new JJWTTokenProvider(jwtSecurityProperties);
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(PasswordEncoder.class)
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(UserDetailsService.class)
+  public UserDetailsService userDetailsService() {
+    return new SimpleUserDetailService();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(SecurityEvaluationContextExtension.class)
+  public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+    return new SecurityEvaluationContextExtension();
+  }
+
+  /**
+   * Default Jwt based security configuration
+   */
+  @Configuration
+  @EnableWebSecurity
+  @EnableGlobalMethodSecurity(prePostEnabled = true)
+  @ConditionalOnProperty(prefix = "com.github.cobrijani.jwt", name = "enabled", matchIfMissing = true)
+  protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    protected final SecurityProperties security;
+
     private final JwtSecurityProperties jwtSecurityProperties;
 
+    private final PasswordEncoder passwordEncoder;
 
-    public JwtAutoConfiguration(JwtSecurityProperties jwtSecurityProperties) {
-        this.jwtSecurityProperties = jwtSecurityProperties;
-    }
+    private final UserDetailsService userDetailsService;
 
-    @Bean
-    @ConditionalOnMissingBean(TokenProvider.class)
-    public TokenProvider tokenProvider() {
-        return new JJWTTokenProvider(jwtSecurityProperties);
-    }
+    private final TokenProvider tokenProvider;
 
-    @Bean
-    @ConditionalOnMissingBean(PasswordEncoder.class)
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
-    @Bean
-    @ConditionalOnMissingBean(UserDetailsService.class)
-    public UserDetailsService userDetailsService() {
-        return new SimpleUserDetailService();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(SecurityEvaluationContextExtension.class)
-    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-        return new SecurityEvaluationContextExtension();
+    public SecurityConfiguration(SecurityProperties security,
+                                 JwtSecurityProperties jwtSecurityProperties,
+                                 PasswordEncoder passwordEncoder,
+                                 UserDetailsService userDetailsService,
+                                 TokenProvider tokenProvider) {
+      this.security = security;
+      this.jwtSecurityProperties = jwtSecurityProperties;
+      this.passwordEncoder = passwordEncoder;
+      this.userDetailsService = userDetailsService;
+      this.tokenProvider = tokenProvider;
     }
 
     /**
-     * Default Jwt based security configuration
+     * Override this method to configure the {@link HttpSecurity}. Typically subclasses
+     * should not invoke this method by calling super as it may override their
+     * configuration. The default configuration is:
+     * <p>
+     * <pre>
+     * http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+     * </pre>
+     *
+     * @param http the {@link HttpSecurity} to modify
+     * @throws Exception if an error occurs
      */
-    @Configuration
-    @EnableWebSecurity
-    @EnableGlobalMethodSecurity(prePostEnabled = true)
-    @ConditionalOnProperty(prefix = "com.github.cobrijani.jwt", name = "enabled", matchIfMissing = true)
-    protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
-        protected final SecurityProperties security;
+      if (this.security.isRequireSsl()) {
+        http.requiresChannel().anyRequest().requiresSecure();
+      }
+      if (!this.security.isEnableCsrf()) {
+        http.csrf().disable();
+      }
 
-        private final JwtSecurityProperties jwtSecurityProperties;
-
-        private final PasswordEncoder passwordEncoder;
-
-        private final UserDetailsService userDetailsService;
-
-        private final TokenProvider tokenProvider;
-
-
-        public SecurityConfiguration(SecurityProperties security,
-                                     JwtSecurityProperties jwtSecurityProperties,
-                                     PasswordEncoder passwordEncoder,
-                                     UserDetailsService userDetailsService,
-                                     TokenProvider tokenProvider) {
-            this.security = security;
-            this.jwtSecurityProperties = jwtSecurityProperties;
-            this.passwordEncoder = passwordEncoder;
-            this.userDetailsService = userDetailsService;
-            this.tokenProvider = tokenProvider;
-        }
-
-        /**
-         * Override this method to configure the {@link HttpSecurity}. Typically subclasses
-         * should not invoke this method by calling super as it may override their
-         * configuration. The default configuration is:
-         * <p>
-         * <pre>
-         * http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
-         * </pre>
-         *
-         * @param http the {@link HttpSecurity} to modify
-         * @throws Exception if an error occurs
-         */
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-
-            if (this.security.isRequireSsl()) {
-                http.requiresChannel().anyRequest().requiresSecure();
-            }
-            if (!this.security.isEnableCsrf()) {
-                http.csrf().disable();
-            }
-
-            http
-                    .exceptionHandling()
-                    .authenticationEntryPoint(new Http401UnauthorizedEntryPoint())
-                    .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                    .apply(new JWTConfigurer(tokenProvider, jwtSecurityProperties, authenticationManagerBean()));
-        }
-
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth
-                    .userDetailsService(userDetailsService)
-                    .passwordEncoder(passwordEncoder);
-        }
+      http
+        .exceptionHandling()
+        .authenticationEntryPoint(new Http401UnauthorizedEntryPoint())
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .apply(new JWTConfigurer(tokenProvider, jwtSecurityProperties, authenticationManagerBean()));
     }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+      auth
+        .userDetailsService(userDetailsService)
+        .passwordEncoder(passwordEncoder);
+    }
+  }
 }

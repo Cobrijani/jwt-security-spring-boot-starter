@@ -1,9 +1,9 @@
 package com.github.cobrijani.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.github.cobrijani.model.AuthenticationRequestBody;
 import com.github.cobrijani.properties.JwtSecurityProperties;
+import javaslang.control.Try;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,52 +25,53 @@ import java.util.Optional;
  */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    private final TokenProvider tokenProvider;
+  private final TokenProvider tokenProvider;
 
-    private final JwtSecurityProperties jwtSecurityProperties;
-
-    private Optional<AuthenticationRequestBody> currentAuthRequestBody;
+  private final JwtSecurityProperties jwtSecurityProperties;
 
 
-    protected JWTLoginFilter(String defaultFilterProcessesUrl,
-                             TokenProvider tokenProvider,
-                             JwtSecurityProperties jwtSecurityProperties,
-                             AuthenticationManager authenticationManager) {
-        super(new AntPathRequestMatcher(defaultFilterProcessesUrl));
-        this.tokenProvider = tokenProvider;
-        this.jwtSecurityProperties = jwtSecurityProperties;
-        setAuthenticationManager(authenticationManager);
-    }
+  protected JWTLoginFilter(String defaultFilterProcessesUrl,
+                           TokenProvider tokenProvider,
+                           JwtSecurityProperties jwtSecurityProperties,
+                           AuthenticationManager authenticationManager) {
+    super(new AntPathRequestMatcher(defaultFilterProcessesUrl));
+    this.tokenProvider = tokenProvider;
+    this.jwtSecurityProperties = jwtSecurityProperties;
+    setAuthenticationManager(authenticationManager);
+  }
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
-        try {
-            currentAuthRequestBody =
-                    Optional.ofNullable(new ObjectMapper().readValue(httpServletRequest.getInputStream(),
-                            jwtSecurityProperties.getAuthenticationRequestBody()));
-        } catch (UnrecognizedPropertyException ex) {
-            currentAuthRequestBody = Optional.empty();
-        }
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
 
+    Optional<? extends AuthenticationRequestBody> requestBody = Try.of(() ->
+      Optional.ofNullable(new ObjectMapper().readValue(httpServletRequest.getInputStream(),
+        jwtSecurityProperties.getAuthenticationRequestBody()))
+    ).recover(ex ->
+      Optional.empty()
+    ).get();
 
-        final UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(currentAuthRequestBody.map(AuthenticationRequestBody::getLogin).orElse(null),
-                        currentAuthRequestBody.map(AuthenticationRequestBody::getPassword).orElse(null));
+    final UsernamePasswordAuthenticationToken token =
+      new UsernamePasswordAuthenticationToken(requestBody.map(AuthenticationRequestBody::getLogin).orElse(null),
+        requestBody.map(AuthenticationRequestBody::getPassword).orElse(null));
 
-        return getAuthenticationManager().authenticate(token);
-    }
+    token.setDetails(requestBody.map(AuthenticationRequestBody::isRememberMe));
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    return getAuthenticationManager().authenticate(token);
+  }
 
-        SecurityContextHolder.getContext().setAuthentication(authResult);
+  @Override
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
-        final String token = tokenProvider
-                .createToken(authResult, currentAuthRequestBody.map(AuthenticationRequestBody::isRememberMe).orElse(false));
+    SecurityContextHolder.getContext().setAuthentication(authResult);
 
-        currentAuthRequestBody = Optional.empty();
+    boolean rememberMe = Try.of(authResult::getDetails)
+      .map(x -> (Boolean) x)
+      .recover(ex -> false).get();
 
-        response.addHeader(jwtSecurityProperties.getToken().getTokenHeader(),
-                jwtSecurityProperties.getToken().getTokenSchema() + token);
-    }
+    final String token = tokenProvider
+      .createToken(authResult, rememberMe);
+
+    response.addHeader(jwtSecurityProperties.getToken().getTokenHeader(),
+      jwtSecurityProperties.getToken().getTokenSchema() + token);
+  }
 }

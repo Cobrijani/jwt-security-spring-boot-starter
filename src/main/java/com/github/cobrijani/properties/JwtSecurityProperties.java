@@ -17,40 +17,40 @@ import java.util.UUID;
 @ConfigurationProperties(prefix = "com.github.cobrijani.jwt", ignoreUnknownFields = false)
 public class JwtSecurityProperties {
 
-    private Token token = new Token();
+  private Token token = new Token();
 
-    private Class<? extends AuthenticationRequestBody> authenticationRequestBody = SimpleAuthenticationRequestBody.class;
+  private Class<? extends AuthenticationRequestBody> authenticationRequestBody = SimpleAuthenticationRequestBody.class;
 
-    private boolean enabled = true;
+  private boolean enabled = true;
 
-    private String url = "/api/v1/login";
+  private String url = "/api/v1/login";
+
+  @Getter
+  @Setter
+  public static class Token {
+
+    private String tokenHeader = "Authorization";
+
+    private String tokenSchema = "Bearer ";
+
+    private String secret = UUID.randomUUID().toString();
+
+    private long tokenValidityInSeconds = 1800;
+
+    private long tokenValidityInSecondsForRememberMe = 2592000;
+
+    private Payload payload = new Payload();
 
     @Getter
     @Setter
-    public static class Token {
+    public static class Payload {
 
-        private String tokenHeader = "Authorization";
+      private String authoritiesKey = "auth";
 
-        private String tokenSchema = "Bearer ";
+      private String loginKey = "login";
 
-        private String secret = UUID.randomUUID().toString();
-
-        private long tokenValidityInSeconds = 1800;
-
-        private long tokenValidityInSecondsForRememberMe = 2592000;
-
-        private Payload payload = new Payload();
-
-        @Getter
-        @Setter
-        public static class Payload {
-
-            private String authoritiesKey = "auth";
-
-            private String loginKey = "login";
-
-        }
     }
+  }
 
 
 }

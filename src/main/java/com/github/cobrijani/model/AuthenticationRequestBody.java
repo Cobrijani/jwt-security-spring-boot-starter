@@ -6,9 +6,9 @@ package com.github.cobrijani.model;
  */
 public interface AuthenticationRequestBody {
 
-    String getLogin();
+  String getLogin();
 
-    String getPassword();
+  String getPassword();
 
-    boolean isRememberMe();
+  boolean isRememberMe();
 }

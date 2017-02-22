@@ -15,10 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SimpleAuthenticationRequestBody implements AuthenticationRequestBody {
 
-    private String login;
+  private String login;
 
-    private String password;
+  private String password;
 
-    private boolean rememberMe;
+  private boolean rememberMe;
 
 }

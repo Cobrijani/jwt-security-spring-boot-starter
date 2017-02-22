@@ -15,6 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JWTToken {
 
-    private String idToken;
+  private String idToken;
 
 }

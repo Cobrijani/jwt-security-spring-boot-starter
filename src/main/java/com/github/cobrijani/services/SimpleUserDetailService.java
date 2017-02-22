@@ -16,9 +16,9 @@ import java.util.Optional;
 @Service
 public class SimpleUserDetailService implements UserDetailsService {
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<String> username = Optional.ofNullable(s);
-        return username.map(x -> new SimpleUserDetails(x, x.toCharArray(), Collections.emptyList())).orElse(null);
-    }
+  @Override
+  public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    Optional<String> username = Optional.ofNullable(s);
+    return username.map(x -> new SimpleUserDetails(x, x.toCharArray(), Collections.emptyList())).orElse(null);
+  }
 }
