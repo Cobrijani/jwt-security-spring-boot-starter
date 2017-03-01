@@ -5,30 +5,33 @@
 
 - Represents Auto-configured Spring Security on Jwt based authentication for spring boot monolith applications
 
-To use it:
 
-1. Get dependency
 
-__Maven__:
-```xml
+- __Maven__:
+  ```xml
         <dependency>
             <groupId>com.github.cobrijani</groupId>
             <artifactId>jwt-security-spring-boot-starter</artifactId>
             <version>0.0.2</version>
         </dependency>
-```
+  ```
 
-__Gradle__:
+- __Gradle__
+
 ```groovy
 compile('com.github.cobrijani:jwt-security-spring-boot-starter:0.0.2')
 ```
+To use it:
+
+1. Get dependency
 
 2. Implement project specific classes below:
   - ```org.springframework.security.core.userdetails.UserDetails```
   - ```org.springframework.security.core.userdetails.UserDetailsService```
 
-3. POST on '/api/v1/login' with request body as below:
-  ```json
+3. POST on '/api/v1/login' with request body as below
+
+```json
   {
       "login": "user login in db or w/e",
       
@@ -37,16 +40,15 @@ compile('com.github.cobrijani:jwt-security-spring-boot-starter:0.0.2')
       "isRememberMe": "remember me"
   }
   
-  ```
+```
 
 4. If 'UserDetails' and 'UserDetailsService' are successfully implement according to your project you should get 
-    something like this: 
-    
-   ```json
+    something like this 
+ ```json
     {
     "id_token": "your jwt"
     }
  
-   ```
+ ```
     
     
