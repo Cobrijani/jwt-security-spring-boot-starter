@@ -69,7 +69,7 @@ public class JJWTTokenProvider implements TokenProvider {
       .signWith(SignatureAlgorithm.HS256, jwtProperties.getToken().getSecret())
       .setExpiration(validity);
 
-    if ("".equals(authorities.trim())) {
+    if (!"".equals(authorities.trim())) {
       jwtBuilder.claim(jwtProperties.getToken().getPayload().getAuthoritiesKey(), authorities);
     }
 
