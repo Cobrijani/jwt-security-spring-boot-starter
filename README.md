@@ -12,14 +12,14 @@
         <dependency>
             <groupId>com.github.cobrijani</groupId>
             <artifactId>jwt-security-spring-boot-starter</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
   ```
 
 - __Gradle__
 
 ```groovy
-compile('com.github.cobrijani:jwt-security-spring-boot-starter:0.0.2')
+compile('com.github.cobrijani:jwt-security-spring-boot-starter:0.0.3')
 ```
 To use it:
 
