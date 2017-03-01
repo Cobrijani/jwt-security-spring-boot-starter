@@ -29,7 +29,7 @@ To use it:
   - ```org.springframework.security.core.userdetails.UserDetails```
   - ```org.springframework.security.core.userdetails.UserDetailsService```
 
-3. POST on '/api/v1/login' with request body as below:
+3. POST on '/api/v1/login' with request body as below
 
 ```json
   {
@@ -43,7 +43,7 @@ To use it:
 ```
 
 4. If 'UserDetails' and 'UserDetailsService' are successfully implement according to your project you should get 
-    something like this: 
+    something like this 
  ```json
     {
     "id_token": "your jwt"
