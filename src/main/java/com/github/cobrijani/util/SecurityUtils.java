@@ -8,8 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
-import static javaslang.API.*;
-import static javaslang.Predicates.instanceOf;
+import static io.vavr.API.*;
+import static io.vavr.Predicates.instanceOf;
+
 
 /**
  * Helper methods for security
@@ -30,8 +31,8 @@ public class SecurityUtils {
     return getCurrentAuthentication()
       .map(x ->
         Match(x).of(
-          Case(instanceOf(UserDetails.class), z -> ((UserDetails) z).getUsername()),
-          Case(instanceOf(String.class), y -> (String) y.getPrincipal()),
+          Case($(instanceOf(UserDetails.class)), z -> ((UserDetails) z).getUsername()),
+          Case($(instanceOf(String.class)), y -> (String) y.getPrincipal()),
           Case($(), o -> null)
         )).orElse(null);
   }

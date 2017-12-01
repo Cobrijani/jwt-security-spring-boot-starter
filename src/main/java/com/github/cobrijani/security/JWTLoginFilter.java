@@ -3,7 +3,7 @@ package com.github.cobrijani.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.cobrijani.model.AuthenticationRequestBody;
 import com.github.cobrijani.properties.JwtSecurityProperties;
-import javaslang.control.Try;
+import io.vavr.control.Try;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
