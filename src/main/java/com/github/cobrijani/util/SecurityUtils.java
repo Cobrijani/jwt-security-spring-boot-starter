@@ -1,5 +1,6 @@
 package com.github.cobrijani.util;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -31,7 +32,8 @@ public class SecurityUtils {
     return getCurrentAuthentication()
       .map(x ->
         Match(x).of(
-          Case($(instanceOf(UserDetails.class)), z -> ((UserDetails) z).getUsername()),
+//          Case($(instanceOf(UserDetails.class)), z -> ((UserDetails) z).getUsername()),
+          Case($(instanceOf(UsernamePasswordAuthenticationToken.class)), z -> ((UsernamePasswordAuthenticationToken) z).getName()),
           Case($(instanceOf(String.class)), y -> (String) y.getPrincipal()),
           Case($(), o -> null)
         )).orElse(null);
