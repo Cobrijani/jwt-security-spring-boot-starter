@@ -25,7 +25,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    goals: '-Pprod -DskipTests package'
+    goals: 'clean package'
   condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
   displayName: 'Compile, Test & Package the artifact'
 
@@ -38,6 +38,6 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    goals: '-Pprod -DskipTests deploy'
+    goals: 'clean deploy'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   displayName: 'Compile, Test, Package & Deploy the artifact'
