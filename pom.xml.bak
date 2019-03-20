@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.19.RELEASE</version>
+        <relativePath></relativePath>
+        <!-- lookup parent from repository -->
+    </parent>
     <groupId>com.github.cobrijani</groupId>
     <artifactId>jwt-security-spring-boot-starter</artifactId>
     <version>0.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>jwt-security-spring-boot-starter</name>
     <description>Spring boot Jwt security auto configuration</description>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.19.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -30,19 +21,29 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <scm>
-        <url>https://github.com/Cobrijani/jwt-security-spring-boot-starter</url>
-        <connection>scm:git:git://github.com/Cobrijani/jwt-security-spring-boot-starter.git</connection>
-        <developerConnection>scm:git:git@github.com:Cobrijani/jwt-security-spring-boot-starter.git</developerConnection>
-        <tag>0.0.2</tag>
-    </scm>
     <developers>
         <developer>
-            <email>cobrijani@gmail.com</email>
             <name>Stefan Bratic</name>
+            <email>cobrijani@gmail.com</email>
             <url>https://github.com/Cobrijani</url>
         </developer>
     </developers>
+    <scm>
+        <connection>scm:git:git://github.com/Cobrijani/jwt-security-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:git@github.com:Cobrijani/jwt-security-spring-boot-starter.git</developerConnection>
+        <tag>0.0.2</tag>
+        <url>https://github.com/Cobrijani/jwt-security-spring-boot-starter</url>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -50,6 +51,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <vavr.version>0.10.0</vavr.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-scm-provider-gitexe.version>1.9.5</maven-scm-provider-gitexe.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <sortpom-maven-plugin.version>2.10.0</sortpom-maven-plugin.version>
     </properties>
@@ -108,6 +110,13 @@
                     <releaseProfiles>release</releaseProfiles>
                     <goals>deploy</goals>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>${maven-scm-provider-gitexe.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>com.github.ekryd.sortpom</groupId>
@@ -115,10 +124,10 @@
                 <version>${sortpom-maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <phase>verify</phase>
                         <goals>
                             <goal>sort</goal>
                         </goals>
-                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
