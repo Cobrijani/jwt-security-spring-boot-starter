@@ -1,7 +1,7 @@
 # JWT security autoconfigure
 
-[![Build Status](https://travis-ci.org/Cobrijani/jwt-security-spring-boot-starter.svg?branch=master)](https://travis-ci.org/Cobrijani/jwt-security-spring-boot-starter)
-
+[![Build Status Master](https://dev.azure.com/cobrijani0641/jwt-security-spring-boot-starter/_apis/build/status/Cobrijani.jwt-security-spring-boot-starter?branchName=master)](https://dev.azure.com/cobrijani0641/jwt-security-spring-boot-starter/_build/latest?definitionId=1&branchName=master)
+[![Build Status Development](https://dev.azure.com/cobrijani0641/jwt-security-spring-boot-starter/_apis/build/status/Cobrijani.jwt-security-spring-boot-starter?branchName=development)](https://dev.azure.com/cobrijani0641/jwt-security-spring-boot-starter/_build/latest?definitionId=1&branchName=development)
 
 - Represents Auto-configured Spring Security on Jwt based authentication for spring boot monolith applications
 
@@ -34,21 +34,21 @@ To use it:
 ```json
   {
       "login": "user login in db or w/e",
-      
+
       "password": "user password",
-      
+
       "isRememberMe": "remember me"
   }
-  
+
 ```
 
-4. If 'UserDetails' and 'UserDetailsService' are successfully implement according to your project you should get 
-    something like this 
+4. If 'UserDetails' and 'UserDetailsService' are successfully implement according to your project you should get
+    something like this
  ```json
     {
     "id_token": "your jwt"
     }
- 
+
  ```
-    
-    
+
+
