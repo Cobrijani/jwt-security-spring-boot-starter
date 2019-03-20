@@ -8,10 +8,13 @@
         <relativePath></relativePath>
         <!-- lookup parent from repository -->
     </parent>
+    <modules>
+        <module>jwt-security-spring-boot-starter-lib</module>
+    </modules>
     <groupId>com.github.cobrijani</groupId>
-    <artifactId>jwt-security-spring-boot-starter</artifactId>
+    <artifactId>jwt-security-spring-boot-starter-parent</artifactId>
     <version>0.0.4-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>jwt-security-spring-boot-starter</name>
     <description>Spring boot Jwt security auto configuration</description>
     <licenses>
@@ -55,61 +58,12 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <sortpom-maven-plugin.version>2.10.0</sortpom-maven-plugin.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-data</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vavr</groupId>
-            <artifactId>vavr</artifactId>
-            <version>${vavr.version}</version>
-        </dependency>
-    </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${maven-release-plugin.version}</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <releaseProfiles>release</releaseProfiles>
-                    <goals>deploy</goals>
-                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.scm</groupId>
@@ -117,6 +71,12 @@
                         <version>${maven-scm-provider-gitexe.version}</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.github.ekryd.sortpom</groupId>

@@ -9,9 +9,9 @@
     <!-- lookup parent from repository -->
   </parent>
   <groupId>com.github.cobrijani</groupId>
-  <artifactId>jwt-security-spring-boot-starter</artifactId>
+  <artifactId>jwt-security-spring-boot-starter-parent</artifactId>
   <version>0.0.4-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>jwt-security-spring-boot-starter</name>
   <description>Spring boot Jwt security auto configuration</description>
   <licenses>
@@ -28,6 +28,9 @@
       <url>https://github.com/Cobrijani</url>
     </developer>
   </developers>
+  <modules>
+    <module>jwt-security-spring-boot-starter-lib</module>
+  </modules>
   <scm>
     <connection>scm:git:git://github.com/Cobrijani/jwt-security-spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:Cobrijani/jwt-security-spring-boot-starter.git</developerConnection>
@@ -55,49 +58,6 @@
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <sortpom-maven-plugin.version>2.10.0</sortpom-maven-plugin.version>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-data</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt</artifactId>
-      <version>${jjwt.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.vavr</groupId>
-      <artifactId>vavr</artifactId>
-      <version>${vavr.version}</version>
-    </dependency>
-  </dependencies>
   <build>
     <plugins>
       <plugin>
