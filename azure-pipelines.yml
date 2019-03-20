@@ -1,0 +1,42 @@
+pool:
+  vmImage: 'Ubuntu 16.04'
+trigger:
+  branches:
+    include:
+    - master
+    - development
+    - feature/*
+    - bug/*
+pr:
+  branches:
+    include:
+    - master
+steps:
+- checkout: self
+  persistCredentials: true
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    goals: 'clean package'
+  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+  displayName: 'Compile, Test & Package the artifact'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    goals: 'clean deploy'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  displayName: 'Compile, Test, Package & Deploy the artifact'
