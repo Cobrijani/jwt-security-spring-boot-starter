@@ -30,6 +30,7 @@
   </developers>
   <modules>
     <module>jwt-security-spring-boot-starter-lib</module>
+    <module>jwt-security-spring-boot-starter-sample-app</module>
   </modules>
   <scm>
     <connection>scm:git:git://github.com/Cobrijani/jwt-security-spring-boot-starter.git</connection>
