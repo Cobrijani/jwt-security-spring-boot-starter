@@ -28,6 +28,11 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.github.cobrijani</groupId>
+      <artifactId>jwt-security-spring-boot-starter</artifactId>
+      <version>0.0.4-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>runtime</scope>

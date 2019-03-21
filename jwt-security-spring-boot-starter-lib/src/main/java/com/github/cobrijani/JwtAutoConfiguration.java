@@ -127,9 +127,6 @@ public class JwtAutoConfiguration {
         .exceptionHandling()
         .authenticationEntryPoint(new Http401UnauthorizedEntryPoint())
         .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
         .apply(new JWTConfigurer(tokenProvider, jwtSecurityProperties, authenticationManagerBean()));
     }
 
