@@ -61,7 +61,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-
     SecurityContextHolder.getContext().setAuthentication(authResult);
 
     boolean rememberMe = Try.of(authResult::getDetails)

@@ -1,5 +1,6 @@
 package com.github.cobrijani.jwtsecurityspringbootstartersampleapp;
 
+
 import com.github.cobrijani.model.AuthenticationRequestBody;
 import com.github.cobrijani.model.SimpleUserDetails;
 import com.github.cobrijani.security.JWTToken;

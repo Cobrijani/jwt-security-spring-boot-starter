@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Security configuration that adds {@link JWTFilter}
@@ -26,7 +27,11 @@ public class JWTConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
     final JWTFilter jwtFilter = new JWTFilter(tokenProvider, jwtProperties);
     final JWTLoginFilter jwtLoginFilter = new JWTLoginFilter(jwtProperties.getUrl(), tokenProvider, jwtProperties, authenticationManager);
 
-    builder.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class);
-    builder.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    builder
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
   }
 }
